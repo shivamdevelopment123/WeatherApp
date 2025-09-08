@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weatherapp/bloc/weather_bloc.dart';
+import 'package:weatherapp/data/data_provider/weather_data_provider.dart';
+import 'package:weatherapp/data/repository/weather_repository.dart';
+import 'package:weatherapp/screens/weather_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  final repo = WeatherRepository(apiClient: WeatherApiClient());
+
+  runApp(BlocProvider(
+    create: (context) => WeatherBloc(repository: repo),
+    child: const MyApp(),
+  )
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -14,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: Scaffold(),
+      home: WeatherScreen(),
     );
   }
 }
