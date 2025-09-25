@@ -1,18 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weatherapp/bloc/weather_bloc.dart';
-import 'package:weatherapp/data/data_provider/weather_data_provider.dart';
-import 'package:weatherapp/data/repository/weather_repository.dart';
-import 'package:weatherapp/screens/weather_screen.dart';
+import 'package:weatherapp/screens/home_screen.dart';
 
 void main() {
-  final repo = WeatherRepository(apiClient: WeatherApiClient());
-
-  runApp(BlocProvider(
-    create: (context) => WeatherBloc(repository: repo),
-    child: const MyApp(),
-  )
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -21,11 +11,34 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Weather App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
-      home: WeatherScreen(),
+      home: const HomeScreen(),
     );
   }
 }
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Weather App"),
+        centerTitle: true,
+      ),
+      body: const Center(
+        child: Text(
+          "Hello, Flutter! 🚀",
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
+    );
+  }
+}
+
