@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -10,7 +9,6 @@ part 'weather_state.dart';
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   WeatherBloc() : super(WeatherInitial()) {
-    on<WeatherEvent>((event, emit) {
       on<FetchWeather>((event, emit) async {
         try{
           final apiKey = dotenv.env['API_KEY'];
@@ -29,6 +27,5 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
           emit(WeatherFailure());
         }
       });
-    });
   }
 }

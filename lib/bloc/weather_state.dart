@@ -15,6 +15,7 @@ final class WeatherFailure extends WeatherState {}
 
 final class WeatherSuccess extends WeatherState {
   final Weather weather;
+
   const WeatherSuccess(this.weather);
 
   @override

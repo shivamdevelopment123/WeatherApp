@@ -2,10 +2,54 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import '../bloc/weather_bloc.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  Widget getWeatherIcon(int code) {
+    switch (code) {
+    case >= 200 && < 300 :
+    return Image.asset(
+    'assets/images/1.png'
+    );
+    case >= 300 && < 400 :
+    return Image.asset(
+    'assets/images/2.png'
+    );
+    case >= 500 && < 600 :
+    return Image.asset(
+    'assets/images/3.png'
+    );
+    case >= 600 && < 700 :
+    return Image.asset(
+    'assets/images/4.png'
+    );
+    case >= 700 && < 800 :
+    return Image.asset(
+    'assets/images/5.png'
+    );
+    case == 800 :
+    return Image.asset(
+    'assets/images/6.png'
+    );
+    case > 800 && <= 804 :
+    return Image.asset(
+    'assets/images/7.png'
+    );
+    default:
+    return Image.asset(
+    'assets/images/7.png'
+    );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +128,6 @@ class HomeScreen extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                             ),
                           ),
-                          SizedBox(height: 10),
 
                           Text(
                             'Good Morning',
@@ -95,16 +138,16 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
 
-                          Image.asset('assets/images/2.png'),
+                          getWeatherIcon(state.weather.weatherConditionCode!),
 
                           SizedBox(height: 10),
 
                           Center(
                             child: Text(
-                              '${state.weather.temperature!.celsius!.round()}',
+                              '${state.weather.temperature!.celsius!.round()}°C',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 50,
+                                fontSize: 45,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -125,8 +168,7 @@ class HomeScreen extends StatelessWidget {
 
                           Center(
                             child: Text(
-                              //show current system date and time from system
-                              '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
+                              DateFormat('EEEE dd ').add_jm().format(state.weather.date!),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -135,14 +177,14 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
 
-                          SizedBox(height: 25),
+                          SizedBox(height: 20),
 
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
                                 children: [
-                                  Image.asset('assets/images/6.png', scale: 8),
+                                  Image.asset('assets/images/6.png', scale: 10),
                                   SizedBox(width: 10),
                                   Column(
                                     children: [
@@ -154,9 +196,9 @@ class HomeScreen extends StatelessWidget {
                                           fontWeight: FontWeight.w300,
                                         ),
                                       ),
-                                      SizedBox(height: 10),
+                                      SizedBox(height: 5),
                                       Text(
-                                        '6:34 am',
+                                        DateFormat().add_jm().format(state.weather.sunrise!),
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 16,
@@ -170,7 +212,7 @@ class HomeScreen extends StatelessWidget {
 
                               Row(
                                 children: [
-                                  Image.asset('assets/images/12.png', scale: 8),
+                                  Image.asset('assets/images/12.png', scale: 10),
                                   SizedBox(width: 10),
                                   Column(
                                     children: [
@@ -182,9 +224,9 @@ class HomeScreen extends StatelessWidget {
                                           fontWeight: FontWeight.w300,
                                         ),
                                       ),
-                                      SizedBox(height: 10),
+                                      SizedBox(height: 5),
                                       Text(
-                                        '7:05 pm',
+                                        DateFormat().add_jm().format(state.weather.sunset!),
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 16,
@@ -208,7 +250,7 @@ class HomeScreen extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  Image.asset('assets/images/13.png', scale: 8),
+                                  Image.asset('assets/images/13.png', scale: 10),
                                   SizedBox(width: 10),
                                   Column(
                                     children: [
@@ -220,9 +262,9 @@ class HomeScreen extends StatelessWidget {
                                           fontWeight: FontWeight.w300,
                                         ),
                                       ),
-                                      SizedBox(height: 10),
+                                      SizedBox(height: 5),
                                       Text(
-                                        '13 C',
+                                        '${state.weather.tempMax!.celsius!.round()}°C',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 16,
@@ -236,7 +278,7 @@ class HomeScreen extends StatelessWidget {
 
                               Row(
                                 children: [
-                                  Image.asset('assets/images/14.png', scale: 8),
+                                  Image.asset('assets/images/14.png', scale: 10),
                                   SizedBox(width: 10),
                                   Column(
                                     children: [
@@ -248,9 +290,9 @@ class HomeScreen extends StatelessWidget {
                                           fontWeight: FontWeight.w300,
                                         ),
                                       ),
-                                      SizedBox(height: 10),
+                                      SizedBox(height: 5),
                                       Text(
-                                        '4 C',
+                                        '${state.weather.tempMin!.celsius!.round()}°C',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 16,
